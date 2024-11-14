@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://doskty1qqadix"]
+
+[ext_resource type="Script" path="res://stone.gd" id="1_6s6ed"]
+[ext_resource type="Texture2D" uid="uid://blwaggre0qywf" path="res://kenney_abstract-platformer/PNG/Items/redCrystal.png" id="2_rq0vd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rq0vd"]
+friction = 0.35
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdcmn"]
+size = Vector2(32, 30)
+
+[node name="stone" type="RigidBody2D"]
+collision_mask = 2
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_rq0vd")
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("1_6s6ed")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rq0vd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xdcmn")
+debug_color = Color(3.85046e-06, 0.595094, 0.720295, 0.52549)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

@@ -11,8 +11,15 @@ config_version=5
 [application]
 
 config/name="gunny-clone"
+run/main_scene="res://tutorial.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[layer_names]
+
+2d_physics/layer_1="stone"
+2d_physics/layer_2="ground"
+2d_physics/layer_3="player"
 
 [rendering]
 
