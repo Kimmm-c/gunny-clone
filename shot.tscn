@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b202vivir0vxf"]
+
+[ext_resource type="Script" path="res://shot.gd" id="1_awion"]
+
+[node name="Shot" type="Node2D"]
+script = ExtResource("1_awion")

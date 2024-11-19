@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh0yfgxus5d8h"]
+
+[ext_resource type="Script" path="res://minion.gd" id="1_20mgi"]
+[ext_resource type="Texture2D" uid="uid://c833h0hgpad2t" path="res://kenney_abstract-platformer/PNG/Players/Player Green/playerGreen_roll.png" id="1_ifsmd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20mgi"]
+
+[node name="Minion" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_20mgi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_20mgi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ifsmd")
