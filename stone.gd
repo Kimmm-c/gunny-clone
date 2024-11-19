@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+@export var damage = 1000
+@export var bullets_per_shot = 1
+
 #func _physics_process(delta: float) -> void:
 	#print(get_contact_count())
 signal hit(collider_rid, collider_body)
