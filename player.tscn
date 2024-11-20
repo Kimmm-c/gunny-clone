@@ -9,6 +9,8 @@ size = Vector2(34, 36)
 [node name="Player" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 3
+contact_monitor = true
+max_contacts_reported = 5
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 

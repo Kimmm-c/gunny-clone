@@ -1,19 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://yo1omiogcwur"]
+[gd_scene load_steps=4 format=3 uid="uid://yo1omiogcwur"]
 
 [ext_resource type="Texture2D" uid="uid://c673qn7b1wxue" path="res://kenney_abstract-platformer/PNG/Players/Player Grey/playerGrey_hit.png" id="1_0bnu1"]
 [ext_resource type="Script" path="res://boss.gd" id="1_skx2t"]
-[ext_resource type="Script" path="res://sprite_2d.gd" id="2_6xxrv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6xxrv"]
+radius = 18.0
 
 [node name="Boss" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 3
+contact_monitor = true
+max_contacts_reported = 5
 script = ExtResource("1_skx2t")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6xxrv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_0bnu1")
-script = ExtResource("2_6xxrv")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
