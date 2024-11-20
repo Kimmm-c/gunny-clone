@@ -6,11 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(34, 36)
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 3
-contact_monitor = true
-max_contacts_reported = 5
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 

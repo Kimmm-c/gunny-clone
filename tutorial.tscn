@@ -3,10 +3,8 @@
 [ext_resource type="Script" path="res://tutorial.gd" id="1_ehuit"]
 [ext_resource type="PackedScene" uid="uid://epdo1nsksbdu" path="res://tutorial_level.tscn" id="1_yb1ct"]
 [ext_resource type="PackedScene" uid="uid://doskty1qqadix" path="res://stone.tscn" id="2_ehuit"]
-[ext_resource type="Texture2D" uid="uid://cd8gs3udu4n54" path="res://kenney_abstract-platformer/PNG/Players/Player Red/playerRed_up1.png" id="4_5mrt3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mrt3"]
-size = Vector2(38, 46)
+[ext_resource type="PackedScene" uid="uid://yo1omiogcwur" path="res://boss.tscn" id="5_rwowx"]
+[ext_resource type="PackedScene" uid="uid://bskls1p343n00" path="res://player.tscn" id="6_hu44a"]
 
 [node name="tutorial" type="Node2D"]
 script = ExtResource("1_ehuit")
@@ -14,23 +12,19 @@ stone_scene = ExtResource("2_ehuit")
 
 [node name="tutorial_level" parent="." instance=ExtResource("1_yb1ct")]
 
+[node name="PlayerTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="EnemyTimer" type="Timer" parent="."]
+
 [node name="StoneTimer" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
 
-[node name="character" type="RigidBody2D" parent="."]
-position = Vector2(307, 424)
-collision_layer = 4
-collision_mask = 2
-can_sleep = false
-metadata/_edit_group_ = true
+[node name="Boss" parent="." instance=ExtResource("5_rwowx")]
+position = Vector2(731, 174)
 
-[node name="Sprite2D" type="Sprite2D" parent="character"]
-texture = ExtResource("4_5mrt3")
+[node name="Player" parent="." instance=ExtResource("6_hu44a")]
+position = Vector2(367, 423)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="character"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_5mrt3")
-debug_color = Color(0, 0.6, 0.701961, 0.552941)
-
-[connection signal="timeout" from="StoneTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PlayerTimer" to="." method="_on_player_timer_timeout"]
+[connection signal="timeout" from="StoneTimer" to="." method="_on_stone_timer_timeout"]
