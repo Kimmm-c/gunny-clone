@@ -28,4 +28,6 @@ func _physics_process(delta: float) -> void:
 			print("shooting power: ", shooting_power)
 		elif Input.is_action_just_released("shoot"):
 			shoot.emit()
-			shooting_power = 0.0
+
+func reset_shooting_power() -> void:
+	shooting_power = 0

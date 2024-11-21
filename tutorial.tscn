@@ -20,7 +20,7 @@ stone_scene = ExtResource("2_ehuit")
 position = Vector2(731, 174)
 
 [node name="Player" parent="." instance=ExtResource("6_hu44a")]
-position = Vector2(367, 423)
+position = Vector2(359, 227)
 
 [node name="TurnManager" parent="." instance=ExtResource("6_0cr88")]
 
