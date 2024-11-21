@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends CharacterBody2D
 
 # A minion is spawn from the boss's (its parent) position.
 # At the enemy turn, the minion moves closer to the player's position for 2s (minion timer)
@@ -10,9 +10,23 @@ extends RigidBody2D
 signal hit_player
 @export var damage = 200
 @export var health = 3000
+@export var speed = 50
+const GRAVITY = 300
+var is_moving = false
+var direction: Vector2
 
-func move(direction: Vector2) -> void:
-	move_and_collide(direction)
+func _ready() -> void:
+	add_to_group("minions")
+
+func _physics_process(delta: float) -> void:
+	velocity.y += GRAVITY * delta
+	if is_moving:
+		velocity.x = direction.x * speed
+	move_and_slide()
+
+func move(target_position: Vector2) -> void:
+	direction = (target_position - global_position).normalized()
+	is_moving = true
 
 func play_attack_animation() -> void:
 	#change sprite to attack (left/right) based on the character position

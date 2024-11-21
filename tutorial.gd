@@ -1,10 +1,14 @@
 extends Node2D
 
 @export var stone_scene: PackedScene
-var counter = 0
+@export var minion_scene: PackedScene
+var stone_counter = 0
+var enemy_turn_counter = 0
 
 func _ready() -> void:              
-	$TurnManager.start_player_turn($Player, $Shot)
+	#$TurnManager.start_player_turn($Player, $Shot)
+	$TurnManager.start_enemy_turn()
+	start_enemy_turn()
 	
 func _on_stone_hit(collider_rid, collider_body) -> void:
 	if collider_body.name == "ground":
@@ -19,7 +23,7 @@ func shoot() -> void:
 	
 
 func _on_stone_timer_timeout() -> void:
-	if counter < 3:
+	if stone_counter < 3:
 		var shooting_angle_rad = deg_to_rad($Shot.shooting_angle)
 	
 	# Calculate the impulse vector on the angle
@@ -35,13 +39,34 @@ func _on_stone_timer_timeout() -> void:
 	# add the stone to the screen
 		add_child(stone)
 		stone.connect("hit", _on_stone_hit)
-		counter += 1
+		stone_counter += 1
 	else:
-		counter = 0
+		stone_counter = 0
 		$StoneTimer.stop()
 		$TurnManager.start_enemy_turn()
+		start_enemy_turn()
 		$Shot.reset_shooting_power()
 
+func start_enemy_turn() -> void:
+	if enemy_turn_counter % 3 == 0:
+		spawn_the_minions()
+	else:
+		move_the_minions()
+	enemy_turn_counter += 1
+
+func spawn_the_minions() -> void:
+	print("spawning the minions...")
+	var spawn_position = $Boss.position
+	for i in range(3):
+		print("spawning enemy ", i)
+		var minion = minion_scene.instantiate()
+		minion.position = spawn_position
+		add_child(minion)
+		spawn_position.x += 25
+
+func move_the_minions() -> void:
+	print("minions are moving...")
+	get_tree().call_group("minions", "move", $Player.position)
 
 func _on_turn_manager_player_timer_timeout() -> void:
 	$TurnManager.stop_player_turn($Player, $Shot)
@@ -49,4 +74,6 @@ func _on_turn_manager_player_timer_timeout() -> void:
 
 
 func _on_turn_manager_enemy_timer_timeout() -> void:
-	$TurnManager.start_player_turn($Player, $Shot)
+	#$TurnManager.start_player_turn($Player, $Shot)
+	$TurnManager.start_enemy_turn()
+	start_enemy_turn()

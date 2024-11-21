@@ -6,11 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_20mgi"]
 radius = 20.0
 
-[node name="Minion" type="RigidBody2D"]
+[node name="Minion" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 7
-contact_monitor = true
-max_contacts_reported = 5
 script = ExtResource("1_20mgi")
 metadata/_edit_group_ = true
 
@@ -19,5 +17,3 @@ shape = SubResource("CircleShape2D_20mgi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ifsmd")
-
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

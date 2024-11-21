@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://kmfldxg35pbo"]
+[gd_scene load_steps=9 format=3 uid="uid://kmfldxg35pbo"]
 
 [ext_resource type="Script" path="res://tutorial.gd" id="1_ehuit"]
 [ext_resource type="PackedScene" uid="uid://epdo1nsksbdu" path="res://tutorial_level.tscn" id="1_yb1ct"]
 [ext_resource type="PackedScene" uid="uid://doskty1qqadix" path="res://stone.tscn" id="2_ehuit"]
+[ext_resource type="PackedScene" uid="uid://bh0yfgxus5d8h" path="res://minion.tscn" id="3_4t6hg"]
 [ext_resource type="PackedScene" uid="uid://yo1omiogcwur" path="res://boss.tscn" id="5_rwowx"]
 [ext_resource type="PackedScene" uid="uid://by4myqk8n78l4" path="res://turn_manager.tscn" id="6_0cr88"]
 [ext_resource type="PackedScene" uid="uid://bskls1p343n00" path="res://player.tscn" id="6_hu44a"]
 [ext_resource type="PackedScene" uid="uid://b202vivir0vxf" path="res://shot.tscn" id="7_4t6hg"]
 
-[node name="tutorial" type="Node2D"]
+[node name="tutorial" type="Node2D" groups=["minions"]]
 script = ExtResource("1_ehuit")
 stone_scene = ExtResource("2_ehuit")
+minion_scene = ExtResource("3_4t6hg")
 
 [node name="tutorial_level" parent="." instance=ExtResource("1_yb1ct")]
 
