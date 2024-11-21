@@ -1,22 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://kmfldxg35pbo"]
+[gd_scene load_steps=8 format=3 uid="uid://kmfldxg35pbo"]
 
 [ext_resource type="Script" path="res://tutorial.gd" id="1_ehuit"]
 [ext_resource type="PackedScene" uid="uid://epdo1nsksbdu" path="res://tutorial_level.tscn" id="1_yb1ct"]
 [ext_resource type="PackedScene" uid="uid://doskty1qqadix" path="res://stone.tscn" id="2_ehuit"]
 [ext_resource type="PackedScene" uid="uid://yo1omiogcwur" path="res://boss.tscn" id="5_rwowx"]
+[ext_resource type="PackedScene" uid="uid://by4myqk8n78l4" path="res://turn_manager.tscn" id="6_0cr88"]
 [ext_resource type="PackedScene" uid="uid://bskls1p343n00" path="res://player.tscn" id="6_hu44a"]
+[ext_resource type="PackedScene" uid="uid://b202vivir0vxf" path="res://shot.tscn" id="7_4t6hg"]
 
 [node name="tutorial" type="Node2D"]
 script = ExtResource("1_ehuit")
 stone_scene = ExtResource("2_ehuit")
 
 [node name="tutorial_level" parent="." instance=ExtResource("1_yb1ct")]
-
-[node name="PlayerTimer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-
-[node name="EnemyTimer" type="Timer" parent="."]
 
 [node name="StoneTimer" type="Timer" parent="."]
 
@@ -26,5 +22,10 @@ position = Vector2(731, 174)
 [node name="Player" parent="." instance=ExtResource("6_hu44a")]
 position = Vector2(367, 423)
 
-[connection signal="timeout" from="PlayerTimer" to="." method="_on_player_timer_timeout"]
+[node name="TurnManager" parent="." instance=ExtResource("6_0cr88")]
+
+[node name="Shot" parent="." instance=ExtResource("7_4t6hg")]
+
 [connection signal="timeout" from="StoneTimer" to="." method="_on_stone_timer_timeout"]
+[connection signal="player_timer_timeout" from="TurnManager" to="." method="_on_turn_manager_player_timer_timeout"]
+[connection signal="shoot" from="Shot" to="." method="_on_turn_manager_player_timer_timeout"]

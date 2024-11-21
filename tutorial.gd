@@ -1,10 +1,9 @@
 extends Node2D
 
 @export var stone_scene: PackedScene
-var is_player_turn = true
 
-func _physics_process(delta: float) -> void:
-	pass
+func _ready() -> void:
+	$TurnManager.start_player_turn($Player, $Shot)
 	
 func _on_stone_hit(collider_rid, collider_body) -> void:
 	if collider_body.name == "ground":
@@ -19,8 +18,6 @@ func _on_stone_hit(collider_rid, collider_body) -> void:
 func shoot() -> void:
 	pass
 	
-func _on_player_timer_timeout() -> void:
-	shoot()
 
 func _on_stone_timer_timeout() -> void:
 	var rand_angle_degree = randf_range(30, 90)
@@ -42,3 +39,12 @@ func _on_stone_timer_timeout() -> void:
 	# add the stone to the screen
 	add_child(stone)
 	stone.connect("hit", _on_stone_hit)
+
+
+func _on_turn_manager_player_timer_timeout() -> void:
+	$TurnManager.stop_player_turn($Player, $Shot)
+	print("making the shot at _ degree and _ power", $Shot.shooting_angle, $Shot.shooting_power)
+	# make the shot
+	# $ShotManager.shoot($Player, $Shot)
+
+	
