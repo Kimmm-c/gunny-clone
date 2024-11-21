@@ -7,8 +7,9 @@
 size = Vector2(34, 36)
 
 [node name="Player" type="CharacterBody2D"]
+disable_mode = 2
 collision_layer = 4
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("1_onrkg")
 metadata/_edit_group_ = true
 
