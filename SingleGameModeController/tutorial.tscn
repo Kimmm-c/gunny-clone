@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://doskty1qqadix" path="res://Stone/stone.tscn" id="2_ehuit"]
 [ext_resource type="PackedScene" uid="uid://bh0yfgxus5d8h" path="res://Minion/minion.tscn" id="3_4t6hg"]
 [ext_resource type="PackedScene" uid="uid://yo1omiogcwur" path="res://Boss/boss.tscn" id="5_rwowx"]
-[ext_resource type="PackedScene" uid="uid://by4myqk8n78l4" path="res://turn_manager.tscn" id="6_0cr88"]
 [ext_resource type="PackedScene" uid="uid://bskls1p343n00" path="res://Player/player.tscn" id="6_hu44a"]
 [ext_resource type="PackedScene" uid="uid://b202vivir0vxf" path="res://Shot/shot.tscn" id="7_4t6hg"]
+[ext_resource type="PackedScene" uid="uid://6u2ryv1qlnr8" path="res://Utils/frame_counter.tscn" id="8_8w8t1"]
 
 [node name="tutorial" type="Node2D" groups=["minions"]]
 script = ExtResource("1_ehuit")
@@ -24,8 +24,6 @@ position = Vector2(731, 174)
 [node name="Player" parent="." instance=ExtResource("6_hu44a")]
 position = Vector2(359, 227)
 
-[node name="TurnManager" parent="." instance=ExtResource("6_0cr88")]
-
 [node name="Shot" parent="." instance=ExtResource("7_4t6hg")]
 
 [node name="PlayerTimer" type="Timer" parent="."]
@@ -36,9 +34,9 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[node name="FrameCounter" parent="." instance=ExtResource("8_8w8t1")]
+
 [connection signal="timeout" from="StoneTimer" to="." method="_on_stone_timer_timeout"]
-[connection signal="enemy_timer_timeout" from="TurnManager" to="." method="_on_turn_manager_enemy_timer_timeout"]
-[connection signal="player_timer_timeout" from="TurnManager" to="." method="_on_turn_manager_player_timer_timeout"]
-[connection signal="shoot" from="Shot" to="." method="_on_turn_manager_player_timer_timeout"]
+[connection signal="shoot" from="Shot" to="." method="_on_player_timer_timeout"]
 [connection signal="timeout" from="PlayerTimer" to="." method="_on_player_timer_timeout"]
 [connection signal="timeout" from="MinionTimer" to="." method="_on_minion_timer_timeout"]

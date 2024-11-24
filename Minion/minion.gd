@@ -28,17 +28,23 @@ func _physics_process(delta: float) -> void:
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
 		
-		if collision.get_collider().name == "Player":
+		if collision.get_collider().name == "Player" and $FrameCounter.frame_counter % 60 == 0:
 			attack()
 
 
 func move(target_position: Vector2) -> void:
+	if $FrameCounter.frame_counter:
+		$FrameCounter.reset_counter()
+		
+	$FrameCounter.start()
 	direction = (target_position - global_position).normalized()
 	is_moving = true
 
 func stop() -> void:
 	is_moving = false
 	velocity = Vector2.ZERO
+	$FrameCounter.stop()
+	$FrameCounter.reset_counter()
 
 func attack() -> void:
 	hit_player.emit(damage)
@@ -49,18 +55,18 @@ func play_attack_animation() -> void:
 	pass
 
 
-func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	#if collide with player
-	if body.name == "Player":
-	#emit hit_player signal
-		hit_player.emit(damage)
-		play_attack_animation()
-	
-	
-	#if collide with stone
-	#reduce health
-	#if health <= 0 after updating, free the node
-	elif body.name == "stone":
-		health -= body.damage
-		if health <= 0:
-			queue_free()
+#func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	##if collide with player
+	#if body.name == "Player":
+	##emit hit_player signal
+		#hit_player.emit(damage)
+		#play_attack_animation()
+	#
+	#
+	##if collide with stone
+	##reduce health
+	##if health <= 0 after updating, free the node
+	#elif body.name == "stone":
+		#health -= body.damage
+		#if health <= 0:
+			#queue_free()

@@ -7,6 +7,7 @@ const HIT_PLAYER_SIGNAL = "hit_player"
 var stone_counter = 0
 var enemy_turn_counter = 0
 
+
 func _ready() -> void:       
 	start_player_turn()       
 	#start_enemy_turn()
@@ -15,7 +16,7 @@ func _ready() -> void:
 func start_player_turn() -> void:
 	print("starting player's turn...")
 	$Player.is_listening = true
-	$Shot.is_listening = true
+	$Shot.start_listening()
 	$PlayerTimer.start()
 
 
@@ -58,7 +59,6 @@ func _on_stone_timer_timeout() -> void:
 		stone_counter = 0
 		$StoneTimer.stop()
 		start_enemy_turn()
-		#$TurnManager.start_enemy_turn()
 		start_enemy_turn()
 		$Shot.reset_shooting_power()
 
@@ -94,7 +94,7 @@ func move_the_minions() -> void:
 func stop_player_turn() -> void:
 	print("stopping player's turn...")
 	$Player.is_listening = false
-	$Shot.is_listening = false
+	$Shot.stop_listening()
 	$PlayerTimer.stop()
 
 

@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b202vivir0vxf"]
+[gd_scene load_steps=3 format=3 uid="uid://b202vivir0vxf"]
 
 [ext_resource type="Script" path="res://Shot/shot.gd" id="1_awion"]
+[ext_resource type="PackedScene" uid="uid://6u2ryv1qlnr8" path="res://Utils/frame_counter.tscn" id="2_dncrw"]
 
 [node name="Shot" type="Node2D"]
 script = ExtResource("1_awion")
+
+[node name="FrameCounter" parent="." instance=ExtResource("2_dncrw")]
