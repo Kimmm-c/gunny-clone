@@ -8,9 +8,9 @@ var stone_counter = 0
 var enemy_turn_counter = 0
 
 func _ready() -> void:              
-	#$TurnManager.start_player_turn($Player, $Shot)
-	$TurnManager.start_enemy_turn()
-	start_enemy_turn()
+	$TurnManager.start_player_turn($Player, $Shot)
+	#$TurnManager.start_enemy_turn()
+	#start_enemy_turn()
 
 func _on_hit_player(damage) -> void:
 	$Player.health -= damage
@@ -33,6 +33,7 @@ func _on_stone_timer_timeout() -> void:
 		var shooting_angle_rad = deg_to_rad($Shot.shooting_angle)
 	
 	# Calculate the impulse vector on the angle
+		print("shooting power: ", $Shot.shooting_power)
 		var impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * $Shot.shooting_power * 3000
 	
 	#instantiate the stone
@@ -81,7 +82,7 @@ func _on_turn_manager_player_timer_timeout() -> void:
 
 
 func _on_turn_manager_enemy_timer_timeout() -> void:
-	#get_tree().call_group(MINION_GROUP, "stop")
-	#$TurnManager.start_player_turn($Player, $Shot)
-	$TurnManager.start_enemy_turn()
-	start_enemy_turn()
+	get_tree().call_group(MINION_GROUP, "stop")
+	$TurnManager.start_player_turn($Player, $Shot)
+	#$TurnManager.start_enemy_turn()
+	#start_enemy_turn()

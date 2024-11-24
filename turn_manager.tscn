@@ -10,7 +10,7 @@ wait_time = 10.0
 one_shot = true
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = true
 
 [connection signal="timeout" from="PlayerTimer" to="." method="_on_player_timer_timeout"]

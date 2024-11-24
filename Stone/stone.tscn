@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://doskty1qqadix"]
 
-[ext_resource type="Script" path="res://stone.gd" id="1_6s6ed"]
+[ext_resource type="Script" path="res://Stone/stone.gd" id="1_6s6ed"]
 [ext_resource type="Texture2D" uid="uid://blwaggre0qywf" path="res://kenney_abstract-platformer/PNG/Items/redCrystal.png" id="2_rq0vd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xdcmn"]
