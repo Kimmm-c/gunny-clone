@@ -25,12 +25,22 @@ func _on_hit_player(damage) -> void:
 	print("player is under attack! Remaining health: ", $Player.health)
 
 
-func _on_stone_hit(collider_rid, collider_body) -> void:
+func _on_stone_hit(collider_rid, collider_body, stone) -> void:
 	if collider_body.name == "ground":
 		var ground = $tutorial_level/ground
 		var tile_coord = collider_body.get_coords_for_body_rid(collider_rid)
 		
 		ground.erase_cell(tile_coord)
+		stone.delete()
+	elif collider_body.name == "Minion" or collider_body.name == "Boss":
+		print("stone hits ", collider_body.name, ". Health: ", collider_body.health)
+		collider_body.health -= stone.damage
+		if collider_body.health <= 0:
+			collider_body.die()
+		stone.delete()
+	elif collider_body.name == "Player":
+		print("stone hits player. Health: ", collider_body.health)
+		collider_body.health -= stone.damage
 
 
 func shoot() -> void:
@@ -42,7 +52,7 @@ func _on_stone_timer_timeout() -> void:
 		var shooting_angle_rad = deg_to_rad($Shot.shooting_angle)
 	
 	# Calculate the impulse vector on the angle
-		var impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * $Shot.shooting_power * 3000
+		var impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * clamp($Shot.shooting_power, 0, 1) * 3000
 	
 	#instantiate the stone
 		var stone = stone_scene.instantiate()
@@ -106,3 +116,8 @@ func _on_player_timer_timeout() -> void:
 func _on_minion_timer_timeout() -> void:
 	get_tree().call_group(MINION_GROUP, "stop")
 	start_player_turn()
+
+
+func _on_boss_boss_is_dead() -> void:
+	# End the game
+	pass # Replace with function body.

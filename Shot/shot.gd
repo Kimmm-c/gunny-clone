@@ -4,7 +4,6 @@ signal shoot
 @export var shooting_power = 0.0
 @export var shooting_angle = 30
 var power_is_increasing = true
-var is_listening = true
 
 func _physics_process(delta: float) -> void:
 	if $FrameCounter.frame_counter: 

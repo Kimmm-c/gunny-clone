@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Stone/stone.gd" id="1_6s6ed"]
 [ext_resource type="Texture2D" uid="uid://blwaggre0qywf" path="res://kenney_abstract-platformer/PNG/Items/redCrystal.png" id="2_rq0vd"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdcmn"]
-size = Vector2(32, 30)
+[sub_resource type="CircleShape2D" id="CircleShape2D_r02es"]
+radius = 13.0
 
 [node name="stone" type="RigidBody2D"]
-collision_mask = 8
+collision_mask = 10
 mass = 0.1
 contact_monitor = true
 max_contacts_reported = 5
@@ -17,7 +17,7 @@ script = ExtResource("1_6s6ed")
 texture = ExtResource("2_rq0vd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_xdcmn")
+shape = SubResource("CircleShape2D_r02es")
 debug_color = Color(3.85046e-06, 0.595094, 0.720295, 0.52549)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

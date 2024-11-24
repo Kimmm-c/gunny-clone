@@ -15,8 +15,10 @@ const GRAVITY = 300
 var is_moving = false
 var direction: Vector2
 
+
 func _ready() -> void:
 	add_to_group("minions")
+
 
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
@@ -40,33 +42,23 @@ func move(target_position: Vector2) -> void:
 	direction = (target_position - global_position).normalized()
 	is_moving = true
 
+
 func stop() -> void:
 	is_moving = false
 	velocity = Vector2.ZERO
 	$FrameCounter.stop()
 	$FrameCounter.reset_counter()
 
+
 func attack() -> void:
 	hit_player.emit(damage)
 	play_attack_animation()
+
 
 func play_attack_animation() -> void:
 	#change sprite to attack (left/right) based on the character position
 	pass
 
 
-#func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	##if collide with player
-	#if body.name == "Player":
-	##emit hit_player signal
-		#hit_player.emit(damage)
-		#play_attack_animation()
-	#
-	#
-	##if collide with stone
-	##reduce health
-	##if health <= 0 after updating, free the node
-	#elif body.name == "stone":
-		#health -= body.damage
-		#if health <= 0:
-			#queue_free()
+func die() -> void:
+	queue_free()
