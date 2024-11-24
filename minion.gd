@@ -7,7 +7,7 @@ extends CharacterBody2D
 # The minion is dead when its health falls to and below 0
 # When the minion is dead, it's freed from queue
 
-signal hit_player
+signal hit_player(damage)
 @export var damage = 200
 @export var health = 3000
 @export var speed = 50
@@ -22,11 +22,27 @@ func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
 	if is_moving:
 		velocity.x = direction.x * speed
+		
 	move_and_slide()
+	
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		
+		if collision.get_collider().name == "Player":
+			attack()
+
 
 func move(target_position: Vector2) -> void:
 	direction = (target_position - global_position).normalized()
 	is_moving = true
+
+func stop() -> void:
+	is_moving = false
+	velocity = Vector2.ZERO
+
+func attack() -> void:
+	hit_player.emit(damage)
+	play_attack_animation()
 
 func play_attack_animation() -> void:
 	#change sprite to attack (left/right) based on the character position
@@ -35,9 +51,9 @@ func play_attack_animation() -> void:
 
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	#if collide with player
-	if body.name == "player":
+	if body.name == "Player":
 	#emit hit_player signal
-		hit_player.emit()
+		hit_player.emit(damage)
 		play_attack_animation()
 	
 	

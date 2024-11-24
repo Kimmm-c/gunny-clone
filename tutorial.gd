@@ -2,6 +2,8 @@ extends Node2D
 
 @export var stone_scene: PackedScene
 @export var minion_scene: PackedScene
+const MINION_GROUP = "minions"
+const HIT_PLAYER_SIGNAL = "hit_player"
 var stone_counter = 0
 var enemy_turn_counter = 0
 
@@ -9,6 +11,10 @@ func _ready() -> void:
 	#$TurnManager.start_player_turn($Player, $Shot)
 	$TurnManager.start_enemy_turn()
 	start_enemy_turn()
+
+func _on_hit_player(damage) -> void:
+	$Player.health -= damage
+	print("player is under attack! Remaining health: ", $Player.health)
 	
 func _on_stone_hit(collider_rid, collider_body) -> void:
 	if collider_body.name == "ground":
@@ -27,7 +33,7 @@ func _on_stone_timer_timeout() -> void:
 		var shooting_angle_rad = deg_to_rad($Shot.shooting_angle)
 	
 	# Calculate the impulse vector on the angle
-		var impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * $Shot.shooting_power * 2000
+		var impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * $Shot.shooting_power * 3000
 	
 	#instantiate the stone
 		var stone = stone_scene.instantiate()
@@ -62,11 +68,12 @@ func spawn_the_minions() -> void:
 		var minion = minion_scene.instantiate()
 		minion.position = spawn_position
 		add_child(minion)
+		minion.hit_player.connect(_on_hit_player.bind())
 		spawn_position.x += 25
 
 func move_the_minions() -> void:
 	print("minions are moving...")
-	get_tree().call_group("minions", "move", $Player.position)
+	get_tree().call_group(MINION_GROUP, "move", $Player.position)
 
 func _on_turn_manager_player_timer_timeout() -> void:
 	$TurnManager.stop_player_turn($Player, $Shot)
@@ -74,6 +81,7 @@ func _on_turn_manager_player_timer_timeout() -> void:
 
 
 func _on_turn_manager_enemy_timer_timeout() -> void:
+	#get_tree().call_group(MINION_GROUP, "stop")
 	#$TurnManager.start_player_turn($Player, $Shot)
 	$TurnManager.start_enemy_turn()
 	start_enemy_turn()
