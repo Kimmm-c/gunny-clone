@@ -28,7 +28,17 @@ position = Vector2(359, 227)
 
 [node name="Shot" parent="." instance=ExtResource("7_4t6hg")]
 
+[node name="PlayerTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="MinionTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="StoneTimer" to="." method="_on_stone_timer_timeout"]
 [connection signal="enemy_timer_timeout" from="TurnManager" to="." method="_on_turn_manager_enemy_timer_timeout"]
 [connection signal="player_timer_timeout" from="TurnManager" to="." method="_on_turn_manager_player_timer_timeout"]
 [connection signal="shoot" from="Shot" to="." method="_on_turn_manager_player_timer_timeout"]
+[connection signal="timeout" from="PlayerTimer" to="." method="_on_player_timer_timeout"]
+[connection signal="timeout" from="MinionTimer" to="." method="_on_minion_timer_timeout"]
