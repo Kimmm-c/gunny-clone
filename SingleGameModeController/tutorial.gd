@@ -8,7 +8,8 @@ var stone_counter = 0
 var enemy_turn_counter = 0
 
 
-func _ready() -> void:       
+func _ready() -> void:
+	$Player.change_position.connect($Shot._on_player_change_position.bind())    
 	start_player_turn()       
 	#start_enemy_turn()
 

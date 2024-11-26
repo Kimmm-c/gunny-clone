@@ -1,18 +1,23 @@
 extends CharacterBody2D
 
-@export var player_position = Vector2(200, 200)
 @export var health = 25000
 @export var speed = 50
+
+signal change_position(new_position)
+
 const GRAVITY = 300
 var is_listening = true
-var player_state
+var prev_position: Vector2
 
-enum PlayerState {
-	ALIVE,
-	DEAD
-}
+func _ready() -> void:
+	prev_position = position
+
 
 func _physics_process(delta: float) -> void:
+	if position != prev_position:
+		change_position.emit(position)
+		prev_position = position
+	
 	velocity.y += GRAVITY * delta
 	if is_listening:
 		var direction = Vector2.ZERO
@@ -25,6 +30,3 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * speed
 	
 	move_and_slide()
-
-func _ready() -> void:
-	player_state = PlayerState.ALIVE
