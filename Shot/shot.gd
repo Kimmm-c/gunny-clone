@@ -20,31 +20,34 @@ var power_is_increasing = true
 
 func _ready() -> void:
 	calculate_end_point()
+	update_progress_bar()
 
 
 func _physics_process(delta: float) -> void:
 	if $FrameCounter.frame_counter: 
-		if $FrameCounter.frame_counter % 20 == 0:
-			if Input.is_action_pressed("increase_shooting_angle"):
-				shooting_angle += 3
-				print("shooting angle: ", shooting_angle)
-			elif Input.is_action_pressed("decrease_shooting_angle"):
-				shooting_angle -= 3
-				print("shooting angle: ", shooting_angle)
-			elif Input.is_action_pressed("shoot"):
-				if shooting_power > 1.0:
-					power_is_increasing = !power_is_increasing
-				elif shooting_power < 0:
-					power_is_increasing = !power_is_increasing
+		if Input.is_action_pressed("increase_shooting_angle"):
+			shooting_angle += 1
+		elif Input.is_action_pressed("decrease_shooting_angle"):
+			shooting_angle -= 1
+		elif Input.is_action_pressed("shoot"):
+			if shooting_power > 1.0:
+				power_is_increasing = !power_is_increasing
+			elif shooting_power < 0:
+				power_is_increasing = !power_is_increasing
 		
-				if power_is_increasing:
-					shooting_power += 0.1
-				else:
-					shooting_power -= 0.1
-			
-				print("shooting power: ", shooting_power)
+			if power_is_increasing:
+				shooting_power += 0.01
+			else:
+				shooting_power -= 0.01
+				
+			update_progress_bar()
+				
 		if Input.is_action_just_released("shoot"):
 			shoot.emit()
+
+
+func update_progress_bar() -> void:
+	$ProgressBar.value = shooting_power * 100
 
 
 func calculate_end_point() -> void:
