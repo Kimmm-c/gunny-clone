@@ -17,15 +17,17 @@ enum WindDirection {
 var intensity_enum_size = WindIntensity.size()
 var direction_enum_size = WindDirection.size()
 var prev_direction: Vector2
+var tween: Tween
 
 
 func _ready() -> void:
-	update_wind()
+	$Timer.start()
 
 
 func _process(delta: float) -> void:
-	if $AnimatedSprite2D.visible:
+	if visible and wind_intensity:
 		update_sprite()
+		play_animation()
 
 
 func update_wind() -> void:
@@ -49,6 +51,11 @@ func update_sprite() -> void:
 		$AnimatedSprite2D.flip_h = false
 
 
+func play_animation() -> void:
+	if $AnimationTimer.is_stopped():
+		$AnimationTimer.start()
+
+
 func rand_direction() -> void:
 	var rand_key = WindDirection.keys()[randi() % direction_enum_size]
 	prev_direction = wind_direction
@@ -61,3 +68,13 @@ func rand_direction() -> void:
 func rand_intensity() -> void:
 	var rand_key = WindIntensity.keys()[randi() % intensity_enum_size]
 	wind_intensity = WindIntensity.get(rand_key)
+
+
+func _on_animation_timer_timeout() -> void:
+	tween = get_tree().create_tween()
+	tween.tween_property($AnimatedSprite2D, "modulate:a", 0.0, 1.0)	#fade-out effect
+	tween.tween_property($AnimatedSprite2D, "modulate:a", 1.0, 1.0)	#fade-in effect
+
+
+func _on_timer_timeout() -> void:
+	update_wind()

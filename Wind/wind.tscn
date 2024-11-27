@@ -36,6 +36,15 @@ animations = [{
 script = ExtResource("1_p3bod")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(86, 79)
+position = Vector2(111, 77)
 sprite_frames = SubResource("SpriteFrames_3r5ua")
 animation = &"mid"
+
+[node name="AnimationTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
