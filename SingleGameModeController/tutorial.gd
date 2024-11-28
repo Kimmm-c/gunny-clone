@@ -27,18 +27,16 @@ func _on_hit_player(damage) -> void:
 
 
 func _on_stone_hit(collider_rid, collider_body, stone) -> void:
-	#if collider_body.name == "ground":
+	#if collider_body.name == "MidGround":
 		#var ground = $tutorial_level/MidGround
 		#var tile_coord = collider_body.get_coords_for_body_rid(collider_rid)
 		#
 		#ground.erase_cell(tile_coord)
-		#stone.delete()
 	if collider_body.name == "Minion" or collider_body.name == "Boss":
 		print("stone hits ", collider_body.name, ". Health: ", collider_body.health)
 		collider_body.health -= stone.damage
 		if collider_body.health <= 0:
 			collider_body.die()
-		stone.delete()
 	elif collider_body.name == "Player":
 		print("stone hits player. Health: ", collider_body.health)
 		collider_body.health -= stone.damage

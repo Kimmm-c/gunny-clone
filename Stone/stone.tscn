@@ -1,7 +1,76 @@
-[gd_scene load_steps=4 format=3 uid="uid://doskty1qqadix"]
+[gd_scene load_steps=13 format=3 uid="uid://doskty1qqadix"]
 
 [ext_resource type="Script" path="res://Stone/stone.gd" id="1_6s6ed"]
-[ext_resource type="Texture2D" uid="uid://blwaggre0qywf" path="res://kenney_abstract-platformer/PNG/Items/redCrystal.png" id="2_rq0vd"]
+[ext_resource type="Texture2D" uid="uid://bcorvg5xrb2jy" path="res://Stone/sprites/Red Effect Bullet Impact Explosion 32x32.png" id="3_ja8c0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fc532"]
+atlas = ExtResource("3_ja8c0")
+region = Rect2(512, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orqdl"]
+atlas = ExtResource("3_ja8c0")
+region = Rect2(544, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6luw"]
+atlas = ExtResource("3_ja8c0")
+region = Rect2(576, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sh6fr"]
+atlas = ExtResource("3_ja8c0")
+region = Rect2(608, 384, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vkij"]
+atlas = ExtResource("3_ja8c0")
+region = Rect2(352, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1iug"]
+atlas = ExtResource("3_ja8c0")
+region = Rect2(384, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpogw"]
+atlas = ExtResource("3_ja8c0")
+region = Rect2(416, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_niah6"]
+atlas = ExtResource("3_ja8c0")
+region = Rect2(448, 320, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gpx7b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fc532")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orqdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6luw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sh6fr")
+}],
+"loop": false,
+"name": &"blowing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vkij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1iug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpogw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_niah6")
+}],
+"loop": false,
+"name": &"flying",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r02es"]
 radius = 13.0
@@ -13,12 +82,17 @@ contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_6s6ed")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_rq0vd")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gpx7b")
+animation = &"flying"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_r02es")
 debug_color = Color(3.85046e-06, 0.595094, 0.720295, 0.52549)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
