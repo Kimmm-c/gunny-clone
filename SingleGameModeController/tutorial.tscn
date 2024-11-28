@@ -38,6 +38,7 @@ one_shot = true
 
 [connection signal="timeout" from="StoneTimer" to="." method="_on_stone_timer_timeout"]
 [connection signal="boss_is_dead" from="Boss" to="." method="_on_boss_boss_is_dead"]
+[connection signal="throw" from="Player" to="." method="_on_player_throw"]
 [connection signal="shoot" from="Shot" to="." method="_on_player_timer_timeout"]
 [connection signal="timeout" from="PlayerTimer" to="." method="_on_player_timer_timeout"]
 [connection signal="timeout" from="MinionTimer" to="." method="_on_minion_timer_timeout"]

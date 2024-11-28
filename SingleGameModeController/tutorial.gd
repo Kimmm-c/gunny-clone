@@ -48,27 +48,12 @@ func shoot() -> void:
 
 func _on_stone_timer_timeout() -> void:
 	if stone_counter < 3:
-		var shooting_angle_rad = deg_to_rad($Shot.shooting_angle)
-	
-	# Calculate the impulse vector on the angle
-		var impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * clamp($Shot.shooting_power, 0, 1) * 3000
-	
-	#instantiate the stone
-		var stone = stone_scene.instantiate()
-		stone.position = $Player.position
-	
-	# Apply the impulse on the stone
-		stone.apply_central_impulse(impulse_vector)
-	
-	# add the stone to the screen
-		add_child(stone)
-		stone.connect("hit", _on_stone_hit)
-		stone_counter += 1
+		$Player.attack()	
 	else:
 		stone_counter = 0
 		$StoneTimer.stop()
 		start_enemy_turn()
-		start_enemy_turn()
+		#start_enemy_turn()
 		$Shot.reset_shooting_power()
 
 
@@ -120,3 +105,22 @@ func _on_minion_timer_timeout() -> void:
 func _on_boss_boss_is_dead() -> void:
 	# End the game
 	pass # Replace with function body.
+
+
+func _on_player_throw() -> void:
+	var shooting_angle_rad = deg_to_rad($Shot.shooting_angle)
+	
+	# Calculate the impulse vector on the angle
+	var impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * clamp($Shot.shooting_power, 0, 1) * 3000
+	
+	#instantiate the stone
+	var stone = stone_scene.instantiate()
+	stone.position = $Player.position
+	
+	# Apply the impulse on the stone
+	stone.apply_central_impulse(impulse_vector)
+	
+	# add the stone to the screen
+	add_child(stone)
+	stone.connect("hit", _on_stone_hit)
+	stone_counter += 1

@@ -73,7 +73,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r02es"]
-radius = 13.0
+radius = 24.0208
 
 [node name="stone" type="RigidBody2D"]
 collision_mask = 10
@@ -83,13 +83,14 @@ max_contacts_reported = 5
 script = ExtResource("1_6s6ed")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_gpx7b")
 animation = &"flying"
 frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 0)
+position = Vector2(5, 0)
 shape = SubResource("CircleShape2D_r02es")
 debug_color = Color(3.85046e-06, 0.595094, 0.720295, 0.52549)
 

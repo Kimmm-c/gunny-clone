@@ -12,9 +12,15 @@ signal hit_player(damage)
 @export var health = 3000
 @export var speed = 50
 const GRAVITY = 300
-var is_moving = false
+#var is_moving = false
 var direction: Vector2
+var state = MinionState.IDLE
 
+enum MinionState {
+	IDLE,
+	MOVING,
+	ATTACKING
+}
 
 func _ready() -> void:
 	add_to_group("minions")
@@ -22,7 +28,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
-	if is_moving:
+	if state == MinionState.MOVING:
 		velocity.x = direction.x * speed
 		
 	move_and_slide()
@@ -32,7 +38,8 @@ func _physics_process(delta: float) -> void:
 		
 		if collision.get_collider().name == "Player" and $FrameCounter.frame_counter % 60 == 0:
 			attack()
-
+	
+	play_animation()
 
 func move(target_position: Vector2) -> void:
 	if $FrameCounter.frame_counter:
@@ -40,24 +47,33 @@ func move(target_position: Vector2) -> void:
 		
 	$FrameCounter.start()
 	direction = (target_position - global_position).normalized()
-	is_moving = true
+	state = MinionState.MOVING
 
 
 func stop() -> void:
-	is_moving = false
+	state = MinionState.IDLE
 	velocity = Vector2.ZERO
 	$FrameCounter.stop()
 	$FrameCounter.reset_counter()
 
 
 func attack() -> void:
+	state = MinionState.ATTACKING
 	hit_player.emit(damage)
-	play_attack_animation()
 
 
-func play_attack_animation() -> void:
-	#change sprite to attack (left/right) based on the character position
-	pass
+func play_animation() -> void:
+	if direction.x < 0:
+		$AnimatedSprite2D.flip_h = true
+	else:
+		$AnimatedSprite2D.flip_h = false
+		
+	if state == MinionState.IDLE:
+		$AnimatedSprite2D.play("idle")
+	elif state == MinionState.MOVING:
+		$AnimatedSprite2D.play("walk")
+	elif state == MinionState.ATTACKING:
+		$AnimatedSprite2D.play("attack")
 
 
 func die() -> void:
