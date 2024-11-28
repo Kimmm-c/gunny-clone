@@ -72,8 +72,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_r02es"]
-radius = 24.0208
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r02es"]
+radius = 16.0
+height = 50.0
 
 [node name="stone" type="RigidBody2D"]
 collision_mask = 10
@@ -90,8 +91,9 @@ frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5, 0)
-shape = SubResource("CircleShape2D_r02es")
+position = Vector2(6, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_r02es")
 debug_color = Color(3.85046e-06, 0.595094, 0.720295, 0.52549)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

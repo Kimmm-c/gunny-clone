@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bmvq2ed1cwhep" path="res://Player/pink-mask-character/pink-mask-character-throwing.png" id="2_btcbx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btcbx"]
-radius = 23.0
-height = 124.0
+radius = 15.0
+height = 94.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_00tjw"]
 atlas = ExtResource("2_btcbx")
@@ -91,10 +91,10 @@ collision_mask = 2
 script = ExtResource("1_onrkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_btcbx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_00tjw")
 animation = &"attack"
 frame = 2
