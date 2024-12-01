@@ -1,10 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://yo1omiogcwur"]
+[gd_scene load_steps=9 format=3 uid="uid://yo1omiogcwur"]
 
 [ext_resource type="Script" path="res://Boss/boss.gd" id="1_skx2t"]
 [ext_resource type="Texture2D" uid="uid://w2nax41dj4qt" path="res://Boss/sprite/green-monster-idle.png" id="2_t20dt"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t20dt"]
-size = Vector2(149, 122)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4cnrr"]
 atlas = ExtResource("2_t20dt")
@@ -56,13 +53,12 @@ contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_skx2t")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 2)
-shape = SubResource("RectangleShape2D_t20dt")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_ntee4")
 animation = &"idle"
-frame = 1
-frame_progress = 0.01337
+frame = 3
+frame_progress = 0.66042
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-1, -51, -75, 31, -75, 63, 78, 63, 78, 29)

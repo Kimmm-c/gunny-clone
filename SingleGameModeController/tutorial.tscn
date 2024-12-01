@@ -19,10 +19,10 @@ minion_scene = ExtResource("3_4t6hg")
 [node name="StoneTimer" type="Timer" parent="."]
 
 [node name="Boss" parent="." instance=ExtResource("5_rwowx")]
-position = Vector2(731, 174)
+position = Vector2(767, 226)
 
 [node name="Player" parent="." instance=ExtResource("6_hu44a")]
-position = Vector2(359, 227)
+position = Vector2(333, 430)
 
 [node name="Shot" parent="." instance=ExtResource("7_4t6hg")]
 

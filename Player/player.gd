@@ -6,7 +6,7 @@ extends CharacterBody2D
 signal change_position(new_position)
 signal throw
 
-
+const MAX_HEALTH = 25000
 const GRAVITY = 300
 var is_listening = true
 var prev_position: Vector2
@@ -20,7 +20,6 @@ enum CharacterState {
 }
 
 
-
 func _ready() -> void:
 	prev_position = position
 	state = CharacterState.IDLE
@@ -32,7 +31,7 @@ func _physics_process(delta: float) -> void:
 		change_position.emit(position)
 		prev_position = position
 	
-	velocity.y += GRAVITY * delta
+	#velocity.y += GRAVITY * delta
 	if is_listening:
 		var direction = Vector2(0, 0)
 		if Input.is_action_pressed("player_moves_left"):
@@ -48,6 +47,11 @@ func _physics_process(delta: float) -> void:
 
 func attack() -> void:
 	state = CharacterState.ATTACKING
+
+
+func inflict_damage(damage: float) -> void:
+	health -= damage
+	$HealthBar.set_value_no_signal($HealthBar.value - damage / MAX_HEALTH * 100) 
 
 
 func play_animation() -> void:
