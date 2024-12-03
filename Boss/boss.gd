@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 # 
-signal boss_is_dead
+signal is_dead
 @export var minions_per_spawn = 3
 @export var health = 25000
 
@@ -20,9 +20,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if health <= 0:
-		boss_is_dead.emit()
-		
 	play_animation()
 
 
@@ -31,3 +28,8 @@ func play_animation() -> void:
 		$AnimatedSprite2D.play("idle")
 	elif state == CharacterState.DEAD:
 		$AnimatedSprite2D.play("dead")
+
+
+func die() -> void:
+	print("boss is dead")
+	is_dead.emit()

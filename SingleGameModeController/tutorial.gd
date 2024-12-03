@@ -2,6 +2,7 @@ extends Node2D
 
 @export var stone_scene: PackedScene
 @export var minion_scene: PackedScene
+signal game_end
 const MINION_GROUP = "minions"
 const HIT_PLAYER_SIGNAL = "hit_player"
 var stone_counter = 0
@@ -23,8 +24,10 @@ func start_player_turn() -> void:
 
 func _on_hit_player(damage) -> void:
 	$Player.health -= damage
-	print("player is under attack! Remaining health: ", $Player.health)
-
+	if $Player.health <= 0:
+		$Player.die()
+	print("player is under attack! remaining health: ", $Player.health)
+	
 
 func _on_stone_hit(collider_rid, collider_body, stone) -> void:
 	#if collider_body.name == "MidGround":
@@ -32,14 +35,11 @@ func _on_stone_hit(collider_rid, collider_body, stone) -> void:
 		#var tile_coord = collider_body.get_coords_for_body_rid(collider_rid)
 		#
 		#ground.erase_cell(tile_coord)
-	if collider_body.name == "Minion" or collider_body.name == "Boss":
+	if collider_body.is_in_group(MINION_GROUP) or collider_body.name == "Boss":
 		print("stone hits ", collider_body.name, ". Health: ", collider_body.health)
 		collider_body.health -= stone.damage
 		if collider_body.health <= 0:
 			collider_body.die()
-	elif collider_body.name == "Player":
-		print("stone hits player. Health: ", collider_body.health)
-		collider_body.health -= stone.damage
 
 
 func shoot() -> void:
@@ -124,3 +124,8 @@ func _on_player_throw() -> void:
 	add_child(stone)
 	stone.connect("hit", _on_stone_hit)
 	stone_counter += 1
+
+
+func _on_game_end() -> void:
+	game_end.emit()
+	queue_free()

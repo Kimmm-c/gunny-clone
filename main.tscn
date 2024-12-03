@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://u408ysxpown6"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://kmfldxg35pbo" path="res://SingleGameModeController/tutorial.tscn" id="2_0xm2m"]
+
+[sub_resource type="Theme" id="Theme_7dm0k"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ig7tw")
+singleplayer_game_scene = ExtResource("2_0xm2m")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7dm0k")
+
+[node name="SingleplayerModeBtn" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = 248.0
+offset_right = 55.0
+offset_bottom = 279.0
+grow_horizontal = 2
+text = "Singleplayer"
+
+[node name="MulptiplayerModeBtn" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = 296.0
+offset_right = 49.0
+offset_bottom = 327.0
+grow_horizontal = 2
+text = "Multiplayer"
+
+[node name="ExitBtn" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 344.0
+offset_right = 597.0
+offset_bottom = 375.0
+text = "Exit"
+
+[connection signal="pressed" from="UI/SingleplayerModeBtn" to="." method="_on_singleplayer_mode_btn_pressed"]
+[connection signal="pressed" from="UI/MulptiplayerModeBtn" to="." method="_on_mulptiplayer_mode_btn_pressed"]
+[connection signal="pressed" from="UI/ExitBtn" to="." method="_on_exit_btn_pressed"]

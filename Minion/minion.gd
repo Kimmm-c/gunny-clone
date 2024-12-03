@@ -26,7 +26,7 @@ func _ready() -> void:
 	add_to_group("minions")
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:	
 	velocity.y += GRAVITY * delta
 	if state == MinionState.MOVING:
 		velocity.x = direction.x * speed
@@ -35,9 +35,11 @@ func _physics_process(delta: float) -> void:
 	
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
-		
-		if collision.get_collider().name == "Player" and $FrameCounter.frame_counter % 60 == 0:
+		var collider = collision.get_collider()
+		if collider.name == "Player" and $FrameCounter.frame_counter % 60 == 0:
 			attack()
+		elif collider.name == "Stone":
+			health -= collider.damage
 	
 	play_animation()
 
@@ -77,4 +79,5 @@ func play_animation() -> void:
 
 
 func die() -> void:
+	print("minion is exiting the scene...")
 	queue_free()
