@@ -46,11 +46,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Boss" type="RigidBody2D"]
+[node name="Boss" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 3
-contact_monitor = true
-max_contacts_reported = 5
 script = ExtResource("1_skx2t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

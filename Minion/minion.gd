@@ -33,10 +33,16 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	
+	# Disable collision detection with player on idle state
+	if state == MinionState.IDLE:
+		set_collision_mask_value(3, false)
+	else:
+		set_collision_mask_value(3, true)
+	
 	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
-		if collider.name == "Player" and $FrameCounter.frame_counter % 60 == 0:
+		if collider.name == "Player" and $FrameCounter.frame_counter % 60 == 0 and state != MinionState.IDLE:
 			attack()
 		elif collider.name == "Stone":
 			health -= collider.damage

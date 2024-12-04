@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends CharacterBody2D
 
 # 
 signal is_dead
@@ -12,6 +12,7 @@ enum CharacterState {
 	DEAD
 }
 
+const GRAVITY = 300
 var state: CharacterState
 
 
@@ -20,6 +21,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	velocity.y += GRAVITY * delta
 	play_animation()
 
 

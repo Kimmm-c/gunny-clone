@@ -73,25 +73,24 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r02es"]
-radius = 16.0
-height = 50.0
+radius = 8.0
+height = 18.0
 
 [node name="stone" type="RigidBody2D"]
 collision_mask = 10
-mass = 2.0
+mass = 0.1
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_6s6ed")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_gpx7b")
 animation = &"flying"
 frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 0)
+position = Vector2(3, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_r02es")
 debug_color = Color(3.85046e-06, 0.595094, 0.720295, 0.52549)

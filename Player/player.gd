@@ -4,7 +4,7 @@ signal change_position(new_position)
 signal throw
 signal is_dead
 
-const MAX_HEALTH = 250
+const MAX_HEALTH = 25000
 const GRAVITY = 300
 var is_listening = true
 var prev_position: Vector2
