@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://kmfldxg35pbo"]
+[gd_scene load_steps=10 format=3 uid="uid://kmfldxg35pbo"]
 
 [ext_resource type="Script" path="res://SingleGameModeController/tutorial.gd" id="1_ehuit"]
 [ext_resource type="PackedScene" uid="uid://epdo1nsksbdu" path="res://Levels/tutorial_level.tscn" id="1_yb1ct"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bskls1p343n00" path="res://Player/player.tscn" id="6_hu44a"]
 [ext_resource type="PackedScene" uid="uid://b202vivir0vxf" path="res://Shot/shot.tscn" id="7_4t6hg"]
 [ext_resource type="PackedScene" uid="uid://6u2ryv1qlnr8" path="res://Utils/frame_counter.tscn" id="8_8w8t1"]
+[ext_resource type="PackedScene" uid="uid://cr7pkc5265va0" path="res://Wind/wind.tscn" id="9_ums83"]
 
 [node name="tutorial" type="Node2D" groups=["minions"]]
 script = ExtResource("1_ehuit")
@@ -35,6 +36,9 @@ wait_time = 3.0
 one_shot = true
 
 [node name="FrameCounter" parent="." instance=ExtResource("8_8w8t1")]
+
+[node name="Wind" parent="." instance=ExtResource("9_ums83")]
+position = Vector2(464, 120)
 
 [connection signal="timeout" from="StoneTimer" to="." method="_on_stone_timer_timeout"]
 [connection signal="is_dead" from="Boss" to="." method="_on_game_end"]

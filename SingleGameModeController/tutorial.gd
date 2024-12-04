@@ -20,6 +20,8 @@ func start_player_turn() -> void:
 	$Player.is_listening = true
 	$Shot.start_listening()
 	$PlayerTimer.start()
+	$Wind.update_wind()
+	$Wind.show()
 
 
 func _on_hit_player(damage) -> void:
@@ -90,6 +92,7 @@ func stop_player_turn() -> void:
 	$Player.is_listening = false
 	$Shot.stop_listening()
 	$PlayerTimer.stop()
+	$Wind.hide()
 
 
 func _on_player_timer_timeout() -> void:
@@ -119,6 +122,7 @@ func _on_player_throw() -> void:
 	
 	# Apply the impulse on the stone
 	stone.apply_central_impulse(impulse_vector)
+	stone.drag_force = $Wind.wind_intensity * $Wind.wind_direction
 	
 	# add the stone to the screen
 	add_child(stone)

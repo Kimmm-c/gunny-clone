@@ -78,7 +78,7 @@ height = 50.0
 
 [node name="stone" type="RigidBody2D"]
 collision_mask = 10
-mass = 0.1
+mass = 2.0
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_6s6ed")

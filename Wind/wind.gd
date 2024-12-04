@@ -4,9 +4,9 @@ extends Node2D
 @export var wind_intensity: int
 
 enum WindIntensity {
-	LOW = 100,
-	MID = 200,
-	HIGH = 300
+	LOW = 5,
+	MID = 10,
+	HIGH = 15
 }
 
 enum WindDirection {
@@ -21,7 +21,7 @@ var tween: Tween
 
 
 func _ready() -> void:
-	$Timer.start()
+	update_wind()
 
 
 func _process(delta: float) -> void:
@@ -76,5 +76,5 @@ func _on_animation_timer_timeout() -> void:
 	tween.tween_property($AnimatedSprite2D, "modulate:a", 1.0, 1.0)	#fade-in effect
 
 
-func _on_timer_timeout() -> void:
-	update_wind()
+#func _on_timer_timeout() -> void:
+	#update_wind()

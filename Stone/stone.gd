@@ -10,8 +10,10 @@ enum ProjectileState {
 
 signal hit(collider_rid, collider_body, stone)
 
+const GRAVITY = Vector2(0, 98.1)
 var is_collided = false
 var state : ProjectileState
+var drag_force: Vector2
 
 
 func _ready() -> void:
@@ -19,6 +21,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if state == ProjectileState.FLYING:
+		apply_force(GRAVITY*mass, position)
+		apply_force(drag_force, position)
+	elif state == ProjectileState.COLLIDED:
+		sleeping = true
+		freeze = true
+		
 	play_animation()
 
 
