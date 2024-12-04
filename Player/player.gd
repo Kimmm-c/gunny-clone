@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal change_position(new_position)
+signal change_direction
 signal throw
 signal is_dead
 
@@ -23,7 +24,6 @@ enum CharacterState {
 	ATTACKING
 }
 
-
 func _ready() -> void:
 	prev_position = position
 	state = CharacterState.IDLE
@@ -37,14 +37,22 @@ func _physics_process(delta: float) -> void:
 	
 	velocity.y += GRAVITY * delta
 	if is_listening:
-		var direction = Vector2(0, 0)
+		var direction = Vector2.ZERO
 		if Input.is_action_pressed("player_moves_left"):
 			direction.x -= 1
 		elif Input.is_action_pressed("player_moves_right"):
 			direction.x += 1
 	
 		velocity.x = direction.x * speed
-		idle_direction = direction
+		
+		if direction != idle_direction and direction != Vector2.ZERO:
+			print("current direction: ", direction)
+			print("prev direction: ", idle_direction)
+			change_direction.emit()
+			
+		if direction != Vector2.ZERO:
+			idle_direction = direction
+		
 	move_and_slide()
 	play_animation()
 
@@ -61,7 +69,7 @@ func die() -> void:
 func play_animation() -> void:
 	if idle_direction.x < 0:
 		$AnimatedSprite2D.flip_h = true
-	else:
+	elif idle_direction.x > 0:
 		$AnimatedSprite2D.flip_h = false
 	
 	if state == CharacterState.IDLE:

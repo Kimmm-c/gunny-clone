@@ -23,9 +23,7 @@ minion_scene = ExtResource("3_4t6hg")
 position = Vector2(767, 226)
 
 [node name="Player" parent="." instance=ExtResource("6_hu44a")]
-position = Vector2(326, 430)
-
-[node name="Shot" parent="." instance=ExtResource("7_4t6hg")]
+position = Vector2(318, 406)
 
 [node name="PlayerTimer" type="Timer" parent="."]
 wait_time = 10.0
@@ -40,10 +38,13 @@ one_shot = true
 [node name="Wind" parent="." instance=ExtResource("9_ums83")]
 position = Vector2(464, 120)
 
+[node name="Shot" parent="." instance=ExtResource("7_4t6hg")]
+position = Vector2(-16, 17)
+
 [connection signal="timeout" from="StoneTimer" to="." method="_on_stone_timer_timeout"]
 [connection signal="is_dead" from="Boss" to="." method="_on_game_end"]
 [connection signal="is_dead" from="Player" to="." method="_on_game_end"]
 [connection signal="throw" from="Player" to="." method="_on_player_throw"]
-[connection signal="shoot" from="Shot" to="." method="_on_player_timer_timeout"]
 [connection signal="timeout" from="PlayerTimer" to="." method="_on_player_timer_timeout"]
 [connection signal="timeout" from="MinionTimer" to="." method="_on_minion_timer_timeout"]
+[connection signal="shoot" from="Shot" to="." method="_on_player_timer_timeout"]

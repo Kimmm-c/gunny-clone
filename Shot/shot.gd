@@ -1,22 +1,23 @@
 extends Node2D
 
 signal shoot
-@export var shooting_power = 0.0
-@export var shooting_angle = 30:
+const SPRITE_WIDTH = 64
+
+var shooting_power = 0.0
+var shooting_angle = 30:
 	set(value):
 		shooting_angle = value
-		calculate_end_point()
-		queue_redraw()
-
-const SPRITE_WIDTH = 64
+		redraw()
 var origin = Vector2(0.5, 200):
 	set(value):
 		origin = value
-		calculate_end_point()
-		queue_redraw()
+		redraw()
+var shooting_direction = Vector2(1, 0):
+	set(value):
+		shooting_direction = value
+		redraw()
 var end : Vector2
 var power_is_increasing = true
-
 
 func _ready() -> void:
 	calculate_end_point()
@@ -55,14 +56,20 @@ func calculate_end_point() -> void:
 	var new_end = Vector2(cos(angle_in_rad) * SPRITE_WIDTH, sin(angle_in_rad) * SPRITE_WIDTH)
 	
 	# finalize end point before redrawing
-	end.x = (origin.x + new_end.x)
+	if shooting_direction.x < 0:
+		end.x = (origin.x - new_end.x)
+	else:
+		end.x = (origin.x + new_end.x)
 	end.y = (origin.y - new_end.y)
+	print("shooting endpoint: ", end)
 
 
 func _draw() -> void:
 	draw_line(origin, end, Color.BROWN, 1)
 
 func start_listening() -> void:
+	reset_shooting_power()
+	
 	if $FrameCounter.frame_counter:
 		$FrameCounter.reset_counter()
 	
@@ -78,4 +85,15 @@ func reset_shooting_power() -> void:
 
 
 func _on_player_change_position(new_position) -> void:
+	print("moving angle indicator following player's position: ", new_position)
 	origin = new_position
+
+
+func _on_player_change_direction() -> void:
+	print("moving angle indicator following player's new direction")
+	shooting_direction *= -1
+
+
+func redraw() -> void:
+	calculate_end_point()
+	queue_redraw()

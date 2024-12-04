@@ -11,8 +11,8 @@ var enemy_turn_counter = 0
 
 func _ready() -> void:
 	$Player.change_position.connect($Shot._on_player_change_position.bind())    
-	start_player_turn()       
-	#start_enemy_turn()
+	$Player.change_direction.connect($Shot._on_player_change_direction.bind())    
+	start_player_turn()
 
 
 func start_player_turn() -> void:
@@ -114,7 +114,11 @@ func _on_player_throw() -> void:
 	var shooting_angle_rad = deg_to_rad($Shot.shooting_angle)
 	
 	# Calculate the impulse vector on the angle
-	var impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * clamp($Shot.shooting_power, 0, 1) * 3000
+	var impulse_vector = Vector2.ZERO
+	if $Shot.shooting_direction.x < 0:
+		impulse_vector = Vector2(-cos(shooting_angle_rad), -sin(shooting_angle_rad)) * clamp($Shot.shooting_power, 0, 1) * 3000
+	else:
+		impulse_vector = Vector2(cos(shooting_angle_rad), -sin(shooting_angle_rad)) * clamp($Shot.shooting_power, 0, 1) * 3000
 	
 	#instantiate the stone
 	var stone = stone_scene.instantiate()
