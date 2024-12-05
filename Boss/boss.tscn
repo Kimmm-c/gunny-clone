@@ -56,10 +56,14 @@ script = ExtResource("1_skx2t")
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_ntee4")
 animation = &"idle"
-frame = 3
-frame_progress = 0.66042
+frame = 2
+frame_progress = 0.868956
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-1, -51, -75, 31, -75, 63, 78, 63, 78, 29)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_4cnrr")]
+offset_left = -60.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = -78.0

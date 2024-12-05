@@ -18,6 +18,7 @@ var drag_force: Vector2
 
 func _ready() -> void:
 	state = ProjectileState.FLYING
+	play_SFX()
 
 
 func _physics_process(delta: float) -> void:
@@ -37,6 +38,7 @@ func get_flying_angle() -> float:
 
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	state = ProjectileState.COLLIDED
+	play_SFX()
 	hit.emit(body_rid, body, self)
 
 
@@ -51,3 +53,10 @@ func play_animation() -> void:
 		$AnimatedSprite2D.play("flying")
 	else:
 		$AnimatedSprite2D.play("blowing")
+
+
+func play_SFX() -> void:
+	if state == ProjectileState.FLYING:
+		$whoosh_SFX.play()
+	elif state == ProjectileState.COLLIDED:
+		$exploding_SFX.play()

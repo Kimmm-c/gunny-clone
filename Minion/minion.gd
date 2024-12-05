@@ -67,6 +67,7 @@ func stop() -> void:
 
 func attack() -> void:
 	state = MinionState.ATTACKING
+	play_SFX()
 	hit_player.emit(damage)
 
 
@@ -84,6 +85,11 @@ func play_animation() -> void:
 		$AnimatedSprite2D.play("attack")
 
 
+func play_SFX() -> void:
+	if state == MinionState.ATTACKING:
+		$AxeSlashSFX.play()
+
+ 
 func die() -> void:
 	print("minion is exiting the scene...")
 	queue_free()

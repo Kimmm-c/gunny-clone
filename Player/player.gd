@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		change_position.emit(position)
 		prev_position = position
 	
-	#velocity.y += GRAVITY * delta
+	velocity.y += GRAVITY * delta
 	if is_listening:
 		var direction = Vector2.ZERO
 		if Input.is_action_pressed("player_moves_left"):
@@ -46,15 +46,17 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction.x * speed
 		
 		if direction != idle_direction and direction != Vector2.ZERO:
-			print("current direction: ", direction)
-			print("prev direction: ", idle_direction)
 			change_direction.emit()
 			
 		if direction != Vector2.ZERO:
 			idle_direction = direction
+			state = CharacterState.MOVING
+		else:
+			state = CharacterState.IDLE
 		
 	move_and_slide()
 	play_animation()
+	play_SFX()
 
 
 func attack() -> void:
@@ -78,6 +80,13 @@ func play_animation() -> void:
 		$AnimatedSprite2D.play("attack")
 
 
+func play_SFX() -> void:
+	if state == CharacterState.MOVING and !$WalkSFX.playing:
+		$WalkSFX.play()
+	elif state == CharacterState.IDLE:
+		$WalkSFX.stop()
+	
+	
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "attack":
 		state = CharacterState.IDLE

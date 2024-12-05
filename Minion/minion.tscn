@@ -1,10 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://bh0yfgxus5d8h"]
+[gd_scene load_steps=29 format=3 uid="uid://bh0yfgxus5d8h"]
 
 [ext_resource type="Script" path="res://Minion/minion.gd" id="1_20mgi"]
 [ext_resource type="PackedScene" uid="uid://6u2ryv1qlnr8" path="res://Utils/frame_counter.tscn" id="3_72svi"]
 [ext_resource type="Texture2D" uid="uid://blvitkh0gqvu5" path="res://Minion/sprites/Orc/Orc-Attack02.png" id="3_iyqxc"]
 [ext_resource type="Texture2D" uid="uid://chys8dy64pepi" path="res://Minion/sprites/Orc/Orc-Walk.png" id="4_8yblw"]
 [ext_resource type="Texture2D" uid="uid://cy38dxjlkorfm" path="res://Minion/sprites/Orc/Orc-Idle.png" id="4_bj400"]
+[ext_resource type="AudioStream" uid="uid://cn886bj57duf2" path="res://audio/axe-slash-1-106748.mp3" id="6_bj400"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_20mgi"]
 radius = 19.0
@@ -184,3 +185,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_74eai")
 animation = &"idle"
 frame_progress = 0.620855
+
+[node name="AxeSlashSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_bj400")
+bus = &"SFX"

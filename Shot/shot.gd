@@ -2,6 +2,8 @@ extends Node2D
 
 signal shoot
 const SPRITE_WIDTH = 64
+const MIN_VOLUME = -10
+const MAX_VOLUME = 15
 
 var shooting_power = 0.0
 var shooting_angle = 30:
@@ -28,8 +30,10 @@ func _physics_process(delta: float) -> void:
 	if $FrameCounter.frame_counter: 
 		if Input.is_action_pressed("increase_shooting_angle"):
 			shooting_angle += 1
+			$WindUpSFX.play(0.34)
 		elif Input.is_action_pressed("decrease_shooting_angle"):
 			shooting_angle -= 1
+			$WindUpSFX.play(0.34)
 		elif Input.is_action_pressed("shoot"):
 			if shooting_power > 1.0:
 				power_is_increasing = !power_is_increasing
@@ -38,8 +42,15 @@ func _physics_process(delta: float) -> void:
 		
 			if power_is_increasing:
 				shooting_power += 0.01
+				$PowerRunningSFX.volume_db += 0.5
 			else:
 				shooting_power -= 0.01
+				$PowerRunningSFX.volume_db -= 0.5
+				
+			$PowerRunningSFX.volume_db = clamp($PowerRunningSFX.volume_db, MIN_VOLUME, MAX_VOLUME)
+			
+			if !$PowerRunningSFX.playing:
+				$PowerRunningSFX.play()
 				
 			update_progress_bar()
 				
@@ -61,11 +72,11 @@ func calculate_end_point() -> void:
 	else:
 		end.x = (origin.x + new_end.x)
 	end.y = (origin.y - new_end.y)
-	print("shooting endpoint: ", end)
 
 
 func _draw() -> void:
 	draw_line(origin, end, Color.BROWN, 1)
+
 
 func start_listening() -> void:
 	reset_shooting_power()
@@ -75,9 +86,13 @@ func start_listening() -> void:
 	
 	$FrameCounter.start()
 
+
 func stop_listening() -> void:
 	$FrameCounter.stop()
 	$FrameCounter.reset_counter()
+	$PowerRunningSFX.stop()
+	$PowerRunningSFX.volume_db = MIN_VOLUME
+	$ClockTickSFX.play(15.61)
 
 
 func reset_shooting_power() -> void:
@@ -85,12 +100,10 @@ func reset_shooting_power() -> void:
 
 
 func _on_player_change_position(new_position) -> void:
-	print("moving angle indicator following player's position: ", new_position)
 	origin = new_position
 
 
 func _on_player_change_direction() -> void:
-	print("moving angle indicator following player's new direction")
 	shooting_direction *= -1
 
 

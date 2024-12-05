@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b202vivir0vxf"]
+[gd_scene load_steps=8 format=3 uid="uid://b202vivir0vxf"]
 
 [ext_resource type="Script" path="res://Shot/shot.gd" id="1_awion"]
 [ext_resource type="PackedScene" uid="uid://6u2ryv1qlnr8" path="res://Utils/frame_counter.tscn" id="2_dncrw"]
+[ext_resource type="AudioStream" uid="uid://blwdkoe02expq" path="res://audio/wind-up3-89578.mp3" id="3_cq0gt"]
+[ext_resource type="AudioStream" uid="uid://dot63f0bj6nui" path="res://audio/smooth-cold-wind-looped-135538.mp3" id="4_q6vlv"]
+[ext_resource type="AudioStream" uid="uid://b82hq4carrapk" path="res://audio/ticking-clock_1-27477.mp3" id="5_3j6v0"]
 
 [sub_resource type="Gradient" id="Gradient_dncrw"]
 
@@ -34,3 +37,15 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture_progress = SubResource("GradientTexture2D_cq0gt")
 tint_under = Color(0.192845, 0.640572, 0, 0.94902)
+
+[node name="WindUpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_cq0gt")
+bus = &"SFX"
+
+[node name="PowerRunningSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_q6vlv")
+volume_db = -10.0
+
+[node name="ClockTickSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_3j6v0")
+volume_db = 10.0

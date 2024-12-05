@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://bskls1p343n00"]
+[gd_scene load_steps=17 format=3 uid="uid://bskls1p343n00"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://dors847kfxhwq" path="res://Player/pink-mask-character/pink-mask-character-idle.png" id="2_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://bmvq2ed1cwhep" path="res://Player/pink-mask-character/pink-mask-character-throwing.png" id="2_btcbx"]
 [ext_resource type="PackedScene" uid="uid://bwq5nsmqud3t1" path="res://Health/health_bar.tscn" id="4_gwnis"]
+[ext_resource type="AudioStream" uid="uid://bjni40j6lvpbh" path="res://audio/walking-on-leaves-268455.mp3" id="5_k53q1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btcbx"]
 radius = 15.0
@@ -108,5 +109,9 @@ offset_top = -64.0
 offset_right = 43.0
 offset_bottom = -53.0
 metadata/_edit_use_anchors_ = true
+
+[node name="WalkSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_k53q1")
+bus = &"SFX"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://doskty1qqadix"]
+[gd_scene load_steps=15 format=3 uid="uid://doskty1qqadix"]
 
 [ext_resource type="Script" path="res://Stone/stone.gd" id="1_6s6ed"]
+[ext_resource type="AudioStream" uid="uid://qrs587867j7q" path="res://audio/fireball-whoosh-2-179126.mp3" id="3_fc532"]
 [ext_resource type="Texture2D" uid="uid://bcorvg5xrb2jy" path="res://Stone/sprites/Red Effect Bullet Impact Explosion 32x32.png" id="3_ja8c0"]
+[ext_resource type="AudioStream" uid="uid://d2h1pahsahitm" path="res://audio/retro-explode-1-236678.mp3" id="4_fc532"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fc532"]
 atlas = ExtResource("3_ja8c0")
@@ -73,8 +75,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r02es"]
-radius = 8.0
-height = 18.0
+radius = 14.0
 
 [node name="stone" type="RigidBody2D"]
 collision_mask = 10
@@ -84,16 +85,25 @@ max_contacts_reported = 5
 script = ExtResource("1_6s6ed")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_gpx7b")
 animation = &"flying"
 frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 0)
+position = Vector2(4, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_r02es")
 debug_color = Color(3.85046e-06, 0.595094, 0.720295, 0.52549)
+
+[node name="whoosh_SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fc532")
+bus = &"SFX"
+
+[node name="exploding_SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_fc532")
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
