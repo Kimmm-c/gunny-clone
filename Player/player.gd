@@ -5,17 +5,17 @@ signal change_direction
 signal throw
 signal is_dead
 
-const MAX_HEALTH = 25000
+const MAX_HEALTH = 25000.0
 const GRAVITY = 300
 var is_listening = true
 var prev_position: Vector2
 var state: CharacterState
 var idle_direction: Vector2
-var health = MAX_HEALTH:
+@export var health = MAX_HEALTH:
 	set(value):
 		var damage = health - value
 		health = value
-		$HealthBar.set_value_no_signal($HealthBar.value - damage / MAX_HEALTH * 100)
+		$HealthBar.value -= damage / MAX_HEALTH * 100
 var speed = 50
 
 enum CharacterState {
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		change_position.emit(position)
 		prev_position = position
 	
-	velocity.y += GRAVITY * delta
+	#velocity.y += GRAVITY * delta
 	if is_listening:
 		var direction = Vector2.ZERO
 		if Input.is_action_pressed("player_moves_left"):

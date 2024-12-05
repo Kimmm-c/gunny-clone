@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://yo1omiogcwur"]
+[gd_scene load_steps=10 format=3 uid="uid://yo1omiogcwur"]
 
 [ext_resource type="Script" path="res://Boss/boss.gd" id="1_skx2t"]
 [ext_resource type="Texture2D" uid="uid://w2nax41dj4qt" path="res://Boss/sprite/green-monster-idle.png" id="2_t20dt"]
+[ext_resource type="PackedScene" uid="uid://bwq5nsmqud3t1" path="res://Health/health_bar.tscn" id="3_4cnrr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4cnrr"]
 atlas = ExtResource("2_t20dt")
@@ -60,3 +61,5 @@ frame_progress = 0.66042
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-1, -51, -75, 31, -75, 63, 78, 63, 78, 29)
+
+[node name="HealthBar" parent="." instance=ExtResource("3_4cnrr")]

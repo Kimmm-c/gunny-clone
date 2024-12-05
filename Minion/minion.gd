@@ -8,7 +8,7 @@ extends CharacterBody2D
 # When the minion is dead, it's freed from queue
 
 signal hit_player(damage)
-@export var damage = 200
+@export var damage = 500
 @export var health = 3000
 @export var speed = 50
 const GRAVITY = 300

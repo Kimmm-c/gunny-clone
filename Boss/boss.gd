@@ -2,8 +2,6 @@ extends CharacterBody2D
 
 # 
 signal is_dead
-@export var minions_per_spawn = 3
-@export var health = 25000
 
 enum CharacterState {
 	IDLE,
@@ -13,7 +11,13 @@ enum CharacterState {
 }
 
 const GRAVITY = 300
+const MAX_HEALTH = 30000.0
 var state: CharacterState
+var health = MAX_HEALTH:
+	set(value):
+		var damage = health - value
+		health = value
+		$HealthBar.value -= damage / MAX_HEALTH * 100
 
 
 func _ready() -> void:

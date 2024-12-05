@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var damage = 5
+@export var damage = 1000
 @export var bullets_per_shot = 1
 
 enum ProjectileState {

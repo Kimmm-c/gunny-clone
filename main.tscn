@@ -1,9 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://u408ysxpown6"]
+[gd_scene load_steps=5 format=3 uid="uid://u408ysxpown6"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://kmfldxg35pbo" path="res://SingleGameModeController/tutorial.tscn" id="2_0xm2m"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xm2m"]
+bg_color = Color(0, 0.240515, 0.364707, 1)
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.129412, 0.14902, 0.180392, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+shadow_offset = Vector2(5, 5)
+
 [sub_resource type="Theme" id="Theme_7dm0k"]
+Button/styles/normal = SubResource("StyleBoxFlat_0xm2m")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ig7tw")
