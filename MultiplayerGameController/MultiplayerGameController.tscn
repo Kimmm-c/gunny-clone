@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dd76d6a61kpjm"]
+
+[ext_resource type="Script" path="res://MultiplayerGameController/multiplayer_game_controller.gd" id="1_w0el8"]
+[ext_resource type="PackedScene" uid="uid://bskls1p343n00" path="res://Player/player.tscn" id="2_mhplq"]
+[ext_resource type="PackedScene" uid="uid://epdo1nsksbdu" path="res://Levels/tutorial_level.tscn" id="2_w0cpi"]
+
+[node name="MultiplayerGameController" type="Node2D"]
+script = ExtResource("1_w0el8")
+player_scene = ExtResource("2_mhplq")
+
+[node name="tutorial_level" parent="." instance=ExtResource("2_w0cpi")]
+
+[node name="SpawnLocation" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="SpawnLocation" groups=["PlayerSpawnLocations"]]
+position = Vector2(202, 118)
+
+[node name="1" type="Node2D" parent="SpawnLocation" groups=["PlayerSpawnLocations"]]
+position = Vector2(760, 221)

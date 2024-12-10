@@ -25,6 +25,9 @@ func peer_disconnected(id: int):
 
 func connected_to_server():
 	print("successfully connected to the server")
+	# When client connects to the server, send client/player's info to the server
+	# Note: 1 is the server's id. This statement instructs the server to execute its send_player_info function.
+	send_player_info.rpc_id(1, $UI/LineEdit.text, multiplayer.get_unique_id())
 
 
 func connection_failed():
@@ -38,6 +41,7 @@ func _on_host_pressed() -> void:
 		print("hosting failed. error: ", error)
 		return
 	multiplayer.multiplayer_peer = peer
+	send_player_info($UI/LineEdit, multiplayer.get_unique_id())
 	print("waiting for players...")
 
 
@@ -59,7 +63,26 @@ func start_multiplayer_game():
 	$UI.hide()
 	var multiplayer_game = multiplayer_game_scene.instantiate()
 	add_child(multiplayer_game)
-	multiplayer_game.game_end.connect(_on_game_end.bind())
+	#multiplayer_game.game_end.connect(_on_game_end.bind())
+
+
+@rpc("any_peer")
+func send_player_info(name, id):
+	# The server checks if the id has already existed in GameManager.Players dict.
+	# If not, add the player and their info to the list.
+	if !GameManager.Players.has(id):
+		GameManager.Players[id] = {
+			"id": id,
+			"name": name
+		}
+	
+	# To ensure all the peers have up-to-date info about all the players,
+	# the server loops through each player in the list and call send_player_info on each of them
+	# This guarantees each player receives a full list of players once they join the server. (Because
+	# each multiplayer client has their own GameManager.Players list).
+	if multiplayer.is_server():
+		for i in GameManager.Players:
+			send_player_info.rpc(GameManager.Players[i].name, i)
 
 
 func _on_singleplayer_mode_btn_pressed() -> void:

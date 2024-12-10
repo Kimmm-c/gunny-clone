@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://u408ysxpown6"]
+[gd_scene load_steps=6 format=3 uid="uid://u408ysxpown6"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://kmfldxg35pbo" path="res://SingleGameModeController/tutorial.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dd76d6a61kpjm" path="res://MultiplayerGameController/MultiplayerGameController.tscn" id="3_h2yge"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xm2m"]
 bg_color = Color(0, 0.240515, 0.364707, 1)
@@ -23,7 +24,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_0xm2m")
 [node name="Main" type="Node"]
 script = ExtResource("1_ig7tw")
 singleplayer_game_scene = ExtResource("2_0xm2m")
-multiplayer_game_scene = ExtResource("2_0xm2m")
+multiplayer_game_scene = ExtResource("3_h2yge")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -81,6 +82,13 @@ offset_top = 392.0
 offset_right = 627.0
 offset_bottom = 432.0
 text = "Start Game"
+
+[node name="LineEdit" type="LineEdit" parent="UI"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 176.0
+offset_right = 736.0
+offset_bottom = 216.0
 
 [connection signal="pressed" from="UI/SingleplayerModeBtn" to="." method="_on_singleplayer_mode_btn_pressed"]
 [connection signal="pressed" from="UI/Host" to="." method="_on_host_pressed"]
